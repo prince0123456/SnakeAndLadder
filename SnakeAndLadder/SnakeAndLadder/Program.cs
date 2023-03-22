@@ -44,6 +44,10 @@ namespace SnakeAndLadder
 
                     case Ladder:
                         this.StartingPlayerPosition += dieRolling;
+                        if (this.StartingPlayerPosition > Winning)
+                        {
+                            this.StartingPlayerPosition -= dieRolling;
+                        }
                         break;
 
                     case Snake:
