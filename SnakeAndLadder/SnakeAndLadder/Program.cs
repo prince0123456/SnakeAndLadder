@@ -10,7 +10,6 @@ namespace SnakeAndLadder
             Console.WriteLine("Welcome TO SNAKE AND LADDER Game");
             SnakeAndLadder playerOne = new SnakeAndLadder();
             playerOne.DieRolling();
-            //Console.WriteLine(playerOne.DieRolling());
             playerOne.PlayerCheck();
         }
 
@@ -20,17 +19,15 @@ namespace SnakeAndLadder
         public const int Snake = 2;
         public const int Winning = 100;
         public const int Start = 0;
-
+        public int Count = 0;
         public int StartingPlayerPosition = 0;
-
-        // uc-2 die rolling
         Random random = new Random();
         public int DieRolling()
         {
             int roll = random.Next(1, 7);
             return roll;
+
         }
-        //uc3 player-check
         public void PlayerCheck()
         {
             while (StartingPlayerPosition < Winning)
@@ -48,6 +45,7 @@ namespace SnakeAndLadder
                         {
                             this.StartingPlayerPosition -= dieRolling;
                         }
+                        Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Ladder~~~~~~~~~~~~~~~\n");
                         break;
 
                     case Snake:
@@ -56,14 +54,14 @@ namespace SnakeAndLadder
                         {
                             this.StartingPlayerPosition = Start;
                         }
-
+                        Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Snake~~~~~~~~~~~~~~~\n");
                         break;
 
                 }
-
+                Count++;
                 Console.WriteLine("The Position of Player is :" + this.StartingPlayerPosition + " " + "with a roll of " + dieRolling);
             }
-
+            Console.WriteLine("The number of times dice was rolled to win the Game is : " + Count);
             Console.WriteLine("The Player wins the game");
         }
     }
