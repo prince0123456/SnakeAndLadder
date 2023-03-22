@@ -15,10 +15,13 @@ namespace SnakeAndLadder
         }
 
         //variable declaration
-        public int PlayerPosition = 0;
         public const int No_Play = 0;
         public const int Ladder = 1;
         public const int Snake = 2;
+        public const int Winning = 100;
+        public const int Start = 0;
+
+        public int StartingPlayerPosition = 0;
 
         // uc-2 die rolling
         Random random = new Random();
@@ -30,22 +33,34 @@ namespace SnakeAndLadder
         //uc3 player-check
         public void PlayerCheck()
         {
-            int dieRolling = this.DieRolling();
-            int option = random.Next(0, 3);
-            switch (option)
+            while (StartingPlayerPosition < Winning)
             {
-                case No_Play:
-                    break;
+                int dieRolling = this.DieRolling();
+                int option = random.Next(0, 3);
+                switch (option)
+                {
+                    case No_Play:
+                        break;
 
-                case Ladder:
-                    this.PlayerPosition += dieRolling;
-                    break;
-                case Snake:
-                    this.PlayerPosition -= dieRolling;
-                    break;
+                    case Ladder:
+                        this.StartingPlayerPosition += dieRolling;
+                        break;
 
+                    case Snake:
+                        this.StartingPlayerPosition -= dieRolling;
+                        if (this.StartingPlayerPosition < 0)
+                        {
+                            this.StartingPlayerPosition = Start;
+                        }
+
+                        break;
+
+                }
+
+                Console.WriteLine("The Position of Player is :" + this.StartingPlayerPosition + " " + "with a roll of " + dieRolling);
             }
-            Console.WriteLine(this.PlayerPosition);
+
+            Console.WriteLine("The Player wins the game");
         }
     }
 }
