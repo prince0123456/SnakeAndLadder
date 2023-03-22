@@ -20,7 +20,13 @@ namespace SnakeAndLadder
         public const int Winning = 100;
         public const int Start = 0;
         public int Count = 0;
-        public int StartingPlayerPosition = 0;
+        public int Player1Position = 0;
+        public int Player2Position = 0;
+        bool Player1 = true;
+        bool Player2 = false;
+
+
+
         Random random = new Random();
         public int DieRolling()
         {
@@ -30,39 +36,87 @@ namespace SnakeAndLadder
         }
         public void PlayerCheck()
         {
-            while (StartingPlayerPosition < Winning)
+            while (Player1Position < Winning && Player2Position < Winning)
             {
-                int dieRolling = this.DieRolling();
-                int option = random.Next(0, 3);
-                switch (option)
+                if (Player1)
                 {
-                    case No_Play:
-                        break;
+                    int dieRolling = this.DieRolling();
+                    int option = random.Next(0, 3);
+                    switch (option)
+                    {
+                        case No_Play:
+                            break;
 
-                    case Ladder:
-                        this.StartingPlayerPosition += dieRolling;
-                        if (this.StartingPlayerPosition > Winning)
-                        {
-                            this.StartingPlayerPosition -= dieRolling;
-                        }
-                        Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Ladder~~~~~~~~~~~~~~~\n");
-                        break;
+                        case Ladder:
+                            this.Player1Position += dieRolling;
+                            if (this.Player1Position > Winning)
+                            {
+                                this.Player1Position -= dieRolling;
+                            }
+                            Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Ladder~~~~~~~~~~~~~~~\n");
+                            break;
 
-                    case Snake:
-                        this.StartingPlayerPosition -= dieRolling;
-                        if (this.StartingPlayerPosition < 0)
-                        {
-                            this.StartingPlayerPosition = Start;
-                        }
-                        Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Snake~~~~~~~~~~~~~~~\n");
-                        break;
+                        case Snake:
+                            this.Player1Position -= dieRolling;
+                            if (this.Player1Position < 0)
+                            {
+                                this.Player1Position = Start;
+                            }
+                            Player2 = true;
+                            Player1 = false;
+                            Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Snake~~~~~~~~~~~~~~~\n");
+                            break;
 
+                    }
+                    Count++;
+                    Console.WriteLine("The Position of Player1 is :" + this.Player1Position + " " + "with a roll of " + dieRolling);
                 }
-                Count++;
-                Console.WriteLine("The Position of Player is :" + this.StartingPlayerPosition + " " + "with a roll of " + dieRolling);
+                if (Player2)
+                {
+                    int dieRolling = this.DieRolling();
+                    int option = random.Next(0, 3);
+                    switch (option)
+                    {
+                        case No_Play:
+                            break;
+
+                        case Ladder:
+                            this.Player2Position += dieRolling;
+                            if (this.Player2Position > Winning)
+                            {
+                                this.Player2Position -= dieRolling;
+                            }
+                            Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Ladder~~~~~~~~~~~~~~~\n");
+                            break;
+
+                        case Snake:
+                            this.Player2Position -= dieRolling;
+                            if (this.Player2Position < 0)
+                            {
+                                this.Player2Position = Start;
+                            }
+                            Player2 = false;
+                            Player1 = true;
+                            Console.WriteLine("`~~~~~~~~~~~~~~~~~Got Snake~~~~~~~~~~~~~~~\n");
+                            break;
+
+                    }
+                    Count++;
+                    Console.WriteLine("The Position of Player2 is :" + this.Player2Position + " " + "with a roll of " + dieRolling);
+                }
             }
-            Console.WriteLine("The number of times dice was rolled to win the Game is : " + Count);
-            Console.WriteLine("The Player wins the game");
+            if (Player1Position == 100)
+            {
+                Console.WriteLine("\n~~~~~~~~~~~~~~~Congratulations Player1 Wins~~~~~~~~~~~");
+            }
+            if (Player2Position == 100)
+            {
+                Console.WriteLine("\n~~~~~~~~~~~~~~~ Congratulations Player2 Wins~~~~~~~~~~~~~");
+            }
+
+
+            Console.WriteLine("\nThe number of times dice was rolled in the Game is : " + Count);
+
         }
     }
 }
